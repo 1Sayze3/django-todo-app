@@ -1,0 +1,36 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Your Tasks{% endblock %}
+
+{% block content %}
+<h2>Hello, {{ request.user.username }}!</h2>
+
+<div class="d-flex gap-2 mb-3">
+  <a href="{% url 'task_create' %}" class="btn btn-success">+ Add New Task</a>
+  {% if tasks %}
+  <a href="{% url 'delete_all_tasks' %}" class="btn btn-outline-danger">Delete All Tasks</a>
+  {% endif %}
+</div>
+
+<ul class="list-group">
+  {% for task in tasks %}
+  <li class="list-group-item">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ task.title }}</strong>
+        {% if task.complete %}
+          <span class="badge bg-success">Completed</span>
+        {% endif %}
+        <p class="mb-1">{{ task.description }}</p>
+      </div>
+      <div class="d-flex gap-1">
+        <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-danger">Delete</a>
+      </div>
+    </div>
+  </li>
+  {% empty %}
+  <li class="list-group-item">No tasks yet. Create one!</li>
+  {% endfor %}
+</ul>
+{% endblock %}

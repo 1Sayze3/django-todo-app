@@ -1,0 +1,26 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Update Profile Picture{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <h2 class="mb-4 text-center">Update Profile Picture</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3 text-center">
+          <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;">
+        </div>
+        <div class="mb-3">
+          {{ form.image.label_tag }}
+          {{ form.image }}
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary w-100 rounded-pill">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
